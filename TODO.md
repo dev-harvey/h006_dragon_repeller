@@ -17,8 +17,8 @@
 - [x] Create initial player object
 - [x] Create initial monsters object
 - [x] Create initial locations object
-- [ ] Plan next steps
-- [ ] Commit to Git
+- [x] Plan next steps
+- [x] Commit to Git
 - [ ] Build changeLocation function
   - [ ] Clear buttons and text
   - [ ] Generate buttons and populate text from object 
