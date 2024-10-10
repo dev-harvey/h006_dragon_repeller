@@ -7,7 +7,28 @@
     <link rel="stylesheet" href="/style.css" />
   </head>
   <body>
-    <h1>Dragon Repeller</h1>
+    <div class="container text-center">
+      <h1>Dragon Repeller</h1>
+      <div class="player-info-bar">
+        <div class="player-info-item">XP: <span class="player-info-number" id="xp-text">0</span></div>
+        <div class="player-info-item">Health: <span class="player-info-number" id="health-text">100</span></div>
+        <div class="player-info-item">Gold: <span class="player-info-number" id="gold-text">50</span></div>
+      </div>
+      <div class="interaction-container">
+        <div class="btn-container">
+          <button class="interaction-btn">Go to store</button>
+        </div><!--
+        --><div class="btn-container">
+          <button class="interaction-btn">Go to cave</button>
+        </div><!--
+        --><div class="btn-container">
+          <button class="interaction-btn">Fight dragon</button>
+        </div>
+      </div>
+      <div class="text-area">
+        <p>Welcome to Dragon Repeller. You must defeat the dragon that is preventing people from leaving the town. You are in the town square. Where do you want to go? Use the buttons above.</p>
+      </div>
+    </div>
     <script src="/script.js"></script>
   </body>
 </html>
