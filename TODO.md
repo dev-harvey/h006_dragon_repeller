@@ -19,21 +19,20 @@
 - [x] Create initial locations object
 - [x] Plan next steps
 - [x] Commit to Git
-- [ ] Build changeLocation function
-  - [ ] Clear buttons and text
-  - [ ] Generate buttons and populate text from object 
-- [ ] Hook up the ability to go from the town square to the store and back
-- [ ] Build generateButtons functions (think I could concat them into once function with a parameter)
-- [ ] Add dynamic event handler for buying health button
+- [X] Build changeLocation function
+  - [X] Clear buttons and text
+  - [X] Generate buttons and populate text from object 
+- [X] Hook up the ability to go from the town square to the store and back
+- [X] Build generateButtons functions
 - [ ] Add buying health functionality
   - [ ] For now just use health, maxHealth is a potential future improvement
   - [ ] Make sure you handle errors such as not having enough gold.
   - [ ] Practice writing user tests
 - [ ] Build updateUI function to display stats from player object and call when buying health to display updated gold and health
-- [ ] Add check when generating store buttons to exclude any items you already own
 - [ ] Add buying items functionality
   - [ ] Make sure to include error handling for outliers such as buying weapons you already own.
   - [ ] Practice writing user tests
+- [ ] Add check when generating store buttons to exclude any items you already own
 
 ### TODO Later
 

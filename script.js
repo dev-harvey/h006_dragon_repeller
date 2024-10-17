@@ -1,19 +1,83 @@
 const healthPurchasePrice = 10;
+const interactionContainer = document.querySelector('.interaction-container');
+const textArea = document.querySelector(".text-area");
 
-const changeLocation = () => {
+const changeLocation = (newLocation) => {
+  if (newLocation === undefined) {
+    newLocation = 'error';
+  } else if (locations[newLocation] === undefined) {
+    newLocation = 'error';
+  }
 
+  interactionContainer.innerHTML = "";
+  textArea.innerHTML = "";
+
+  const textElement = document.createElement('p');
+  textElement.textContent = locations[newLocation].text;;
+  textArea.appendChild(textElement);
+
+  locations[newLocation].buttons.forEach(button => {
+    if (typeof button == 'function') {
+      button();
+    } else {
+      const buttonContainerElement = document.createElement('div');
+      buttonContainerElement.classList.add('btn-container');
+      interactionContainer.appendChild(buttonContainerElement);
+
+      const buttonElement = document.createElement('button');
+      buttonElement.textContent = button.text;
+      buttonElement.classList.add('interaction-btn');
+      buttonElement.addEventListener('click', () => button.onClick(button.onClickParameters?.join(",")));
+
+      buttonContainerElement.appendChild(buttonElement);
+    }
+  });
 }
 
 const generateStoreButtons = () => {
+  items.forEach(item => {
+    const buttonContainerElement = document.createElement('div');
+    buttonContainerElement.classList.add('btn-container');
+    interactionContainer.appendChild(buttonContainerElement);
 
+    const buttonElement = document.createElement('button');
+    buttonElement.textContent = `Buy ${item.name} (${item.price} gold)`;
+    buttonElement.classList.add('interaction-btn');
+    buttonElement.addEventListener('click', () => {
+      buyItem(item.id);
+    });
+
+    buttonContainerElement.appendChild(buttonElement);
+  });
 }
 
 const generateCaveButtons = () => {
+  monsters.forEach(monster => {
+    const buttonContainerElement = document.createElement('div');
+    buttonContainerElement.classList.add('btn-container');
+    interactionContainer.appendChild(buttonContainerElement);
 
+    const buttonElement = document.createElement('button');
+    buttonElement.textContent = `Fight ${monster.name}`;
+    buttonElement.classList.add('interaction-btn');
+    buttonElement.addEventListener('click', () => {
+      fightMonster(monster.id);
+    });
+
+    buttonContainerElement.appendChild(buttonElement);
+  });
 }
 
-const fightMonster = () => {
+const fightMonster = (id) => {
+  console.log(`fight ${id}`);
+}
 
+const buyItem = (id) => {
+  console.log(`buy ${id}`);
+}
+
+const buyHealth = () => {
+  console.log('buy health');
 }
 
 const player = {
@@ -57,6 +121,17 @@ const items = [
   }
 ]
 
+const monsters = [
+  {
+    id: 0,
+    name: "Slime"
+  },
+  {
+    id: 1,
+    name: "Wolf"
+  }
+]
+
 // This is staying as an object because I want to use named identifiers and it's unlikely that I will need to iterate over it
 const locations = {
   townSquare: {
@@ -87,8 +162,7 @@ const locations = {
     buttons: [
       {
         text: `Buy health (${healthPurchasePrice} gold)`,
-        onClick: changeLocation,
-        onClickParameters: ["townSquare"]
+        onClick: buyHealth
       },
       generateStoreButtons,
       {
@@ -128,5 +202,38 @@ const locations = {
       }
     ],
     text: "A mighty dragon stands before you. Are you ready to slay it and save the town?"
+  },
+  welcome: {
+    id: 4,
+    name: "Welcome",
+    buttons: [
+      {
+        text: "Begin game",
+        onClick: changeLocation,
+        onClickParameters: ["townSquare"]
+      }
+    ],
+    text: "Welcome to Dragon Repeller. You must defeat the dragon that is preventing people from leaving the town. You are in the town square. Press the button above to begin."
+  },
+  error: {
+    id: 5,
+    name: "Error",
+    buttons: [
+      {
+        text: "Go to town square",
+        onClick: changeLocation,
+        onClickParameters: ["townSquare"]
+      }
+    ],
+    text: "Something's gone wrong, you shouldn't be here!"
   }
 }
+
+const init = () => {
+  changeLocation('welcome');
+}
+
+
+document.addEventListener('DOMContentLoaded', (event) => {
+  init();
+});
