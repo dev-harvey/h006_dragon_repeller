@@ -24,21 +24,26 @@
   - [X] Generate buttons and populate text from object 
 - [X] Hook up the ability to go from the town square to the store and back
 - [X] Build generateButtons functions
-- [ ] Add buying health functionality
-  - [ ] For now just use health, maxHealth is a potential future improvement
-  - [ ] Make sure you handle errors such as not having enough gold.
-  - [ ] Practice writing user tests
-- [ ] Build updateUI function to display stats from player object and call when buying health to display updated gold and health
-- [ ] Add buying items functionality
-  - [ ] Make sure to include error handling for outliers such as buying weapons you already own.
-  - [ ] Practice writing user tests
-- [ ] Add check when generating store buttons to exclude any items you already own
+- [X] Add buying health functionality
+  - [X] For now just use health, maxHealth is a potential future improvement
+  - [X] Make sure you handle errors such as not having enough gold.
+- [X] Build updateUI function to display stats from player object and call when buying health to display updated gold and health
+- [X] Add buying items functionality
+  - [X] Make sure to include error handling for outliers such as buying weapons you already own.
+- [X] Add check when generating store buttons to exclude any items you already own
+- [ ] Combat
+  - [ ] New combat location? Button generation for the fighting screen
+  - [ ] Attack function
+  - [ ] Monster attack function
+  - [ ] Defend/Heal function
+  - [ ] Run away function
+  - [ ] XP and gold gain functions
+  - [ ] New location for end of battle
+- [ ] Dragon bossfight
 
 ### TODO Later
 
-- [ ] Combat
-- [ ] XP gain and levels
-- [ ] Dragon bossfight
+- [ ] Levels instead of just XP
 - [ ] Rework health system to be health and max health
 - [ ] Inventory and shop improvements
   - [ ] View full inventory
@@ -49,11 +54,10 @@
 
 ## Notes
 
-Use event delegation for the dynamic buttons. Use data-attributes on html elements to define button behaivour.
+Use event delegation for the dynamic buttons. Use data-attributes on html elements to define button behaivour. <- instead of doing this I created the event handlers when I generate the button in the JS to avoid the issue of having the HTML markup affect the JS.
 
-I think XP can correspond to level and display level in item bar
+I think XP can correspond to level and display level in item bar.
 
-I'd like the store to give the option to buy specific weapons rather than just incrementing the weapons.
 Certain monsters could be locked behind certain levels to allow for progression.
 Killing a certain amount of monsters with a weapon could grant a buff to that weapon.
 Potentially add weapon durability system.
