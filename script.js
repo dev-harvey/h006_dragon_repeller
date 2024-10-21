@@ -2,19 +2,22 @@ const healthPurchasePrice = 10;
 const interactionContainer = document.querySelector('.interaction-container');
 const textArea = document.querySelector(".text-area");
 
+const updateTextArea = (tag, text) => {
+  textArea.innerHTML = "";
+  const textElement = document.createElement(tag);
+  textElement.textContent = text;
+  textArea.appendChild(textElement);
+}
+
 const changeLocation = (newLocation) => {
   if (newLocation === undefined) {
     newLocation = 'error';
   } else if (locations[newLocation] === undefined) {
     newLocation = 'error';
   }
+  updateTextArea("p", locations[newLocation].text);
 
   interactionContainer.innerHTML = "";
-  textArea.innerHTML = "";
-
-  const textElement = document.createElement('p');
-  textElement.textContent = locations[newLocation].text;;
-  textArea.appendChild(textElement);
 
   locations[newLocation].buttons.forEach(button => {
     if (typeof button == 'function') {
@@ -27,8 +30,15 @@ const changeLocation = (newLocation) => {
       const buttonElement = document.createElement('button');
       buttonElement.textContent = button.text;
       buttonElement.classList.add('interaction-btn');
-      buttonElement.addEventListener('click', () => button.onClick(button.onClickParameters?.join(",")));
-
+      buttonElement.addEventListener('click', (event) => {
+        if (button.onClickParameters === undefined) {
+          button.onClick(event);
+        } else if (Array.isArray(button.onClickParameters))  {
+          button.onClick(...button.onClickParameters,event);
+        } else {
+          button.onClick(button.onClickParameters,event);
+        }
+      });
       buttonContainerElement.appendChild(buttonElement);
     }
   });
@@ -43,10 +53,9 @@ const generateStoreButtons = () => {
     const buttonElement = document.createElement('button');
     buttonElement.textContent = `Buy ${item.name} (${item.price} gold)`;
     buttonElement.classList.add('interaction-btn');
-    buttonElement.addEventListener('click', () => {
-      buyItem(item.id);
+    buttonElement.addEventListener('click', (event) => {
+      buyItem(item.id,event);
     });
-
     buttonContainerElement.appendChild(buttonElement);
   });
 }
@@ -76,14 +85,35 @@ const buyItem = (id) => {
   console.log(`buy ${id}`);
 }
 
-const buyHealth = () => {
-  console.log('buy health');
+const buyHealth = (event) => {
+  if (player.gold >= 10) {
+    player.currentHealth += 10;
+    player.gold -= 10;
+    updatePlayerStats();
+  } else {
+    updateTextArea("p", "You don't have enough gold to buy health! Go and fight some monsters to get more.");
+    event.target.classList.add('disabled');
+  }
+}
+
+const updatePlayerStats = () => {
+  // const levelTextElement = document.querySelector("#level-text");
+  const xpTextElement = document.querySelector("#xp-text");
+  const healthTextElement = document.querySelector("#health-text");
+  const goldTextElement = document.querySelector("#gold-text");
+
+  // levelTextElement.innerHTML = player.level;
+  xpTextElement.innerHTML = player.xp;
+  healthTextElement.innerHTML = player.currentHealth;
+  goldTextElement.innerHTML = player.gold;
+
 }
 
 const player = {
   xp: 10,
   maxHealth: 100,
   currentHealth: 100,
+  gold: 50,
   inventory: [
     {
       itemId: 0,
@@ -231,6 +261,7 @@ const locations = {
 
 const init = () => {
   changeLocation('welcome');
+  updatePlayerStats();
 }
 
 

@@ -75,6 +75,17 @@ body {
   background-color: var(--button-bg-hover-color);
 }
 
+.interaction-btn.disabled {
+  background-color: red;
+  cursor: default;
+}
+
+.interaction-btn.disabled:hover,
+.interaction-btn.disabled:focus {
+  background-color: red;
+}
+
+
 .text-area {
   padding: 10px 20px 5px;
   background-color: var(--body-bg-color);
