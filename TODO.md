@@ -31,15 +31,14 @@
 - [X] Add buying items functionality
   - [X] Make sure to include error handling for outliers such as buying weapons you already own.
 - [X] Add check when generating store buttons to exclude any items you already own
-- [ ] Combat
-  - [ ] New combat location? Button generation for the fighting screen
-  - [ ] Attack function
-  - [ ] Monster attack function
-  - [ ] Defend/Heal function
-  - [ ] Run away function
-  - [ ] XP and gold gain functions
-  - [ ] New location for end of battle
-- [ ] Dragon bossfight
+- [X] Combat
+  - [X] New combat location? Button generation for the fighting screen
+  - [X] Attack function
+  - [X] Monster attack function
+  - [X] Run away function
+  - [X] XP and gold gain functions
+  - [X] New location for end of battle
+- [X] Dragon bossfight
 
 ### TODO Later
 
