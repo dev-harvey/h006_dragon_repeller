@@ -46,6 +46,9 @@ const changeLocation = (newLocation) => {
 
 const generateStoreButtons = () => {
   items.forEach(item => {
+    if (player.inventory.some(inventory_slot => inventory_slot.itemId == item.id)) {
+      return;
+    }
     const buttonContainerElement = document.createElement('div');
     buttonContainerElement.classList.add('btn-container');
     interactionContainer.appendChild(buttonContainerElement);
@@ -81,8 +84,25 @@ const fightMonster = (id) => {
   console.log(`fight ${id}`);
 }
 
-const buyItem = (id) => {
-  console.log(`buy ${id}`);
+const buyItem = (id, event) => {
+  const thisItem = items[id];
+  if (player.inventory.some(inventory_slot => inventory_slot.itemId == id )) {
+    updateTextArea("p", "It seems you already own this item adventurer! I've removed it from the list for you. Would you like to purchase anything else?");
+    event.target.parentElement.style.display = "none";
+    return;
+  }
+  if (player.gold < thisItem.price) {
+    updateTextArea("p", "It seems you can't afford this item adventurer! Perhaps something else might be to your liking instead?");
+    event.target.classList.add('disabled');
+    return;
+  }
+  player.gold -= thisItem.price
+  player.inventory.push({
+    itemId: thisItem.id
+  });
+  updateTextArea("p", `Thank you for purchasing the ${thisItem.name}. Is there anything else I can help you with?`);
+  updatePlayerStats();
+  event.target.parentElement.style.display = "none";
 }
 
 const buyHealth = (event) => {
@@ -116,8 +136,7 @@ const player = {
   gold: 50,
   inventory: [
     {
-      itemId: 0,
-      modifiers: {}
+      itemId: 0
     }
   ],
 }
